@@ -83,7 +83,7 @@
                       :hint='$t(`admin:general.contentLicenseHint`)'
                       persistent-hint
                     )
-                    v-text-field.mt-3(
+                    v-textarea.mt-3(
                       outlined
                       :label='$t(`admin:general.footerOverride`)'
                       v-model='config.footerOverride'
