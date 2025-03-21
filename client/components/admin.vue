@@ -121,7 +121,6 @@
       transition(name='admin-router')
         router-view
 
-    nav-footer
     notify
     search-results
 </template>
