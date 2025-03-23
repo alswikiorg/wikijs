@@ -340,6 +340,12 @@ router.get(['/s', '/s/*'], async (req, res, next) => {
     isPrivate: false
   })
 
+  const injectCode = {
+    css: WIKI.config.theming.injectCSS,
+    head: WIKI.config.theming.injectHead,
+    body: WIKI.config.theming.injectBody
+  }
+
   pageArgs.tags = _.get(page, 'tags', [])
 
   if (WIKI.config.lang.namespacing && !pageArgs.explicitLocale) {
@@ -380,7 +386,7 @@ router.get(['/s', '/s/*'], async (req, res, next) => {
       _.set(res.locals, 'pageMeta.title', page.title)
       _.set(res.locals, 'pageMeta.description', page.description)
 
-      res.render('source', { page, effectivePermissions })
+      res.render('source', { page, effectivePermissions, injectCode })
     }
   } else {
     res.redirect(`/${pageArgs.path}`)

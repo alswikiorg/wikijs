@@ -1,6 +1,10 @@
 extends master.pug
 
 block head
+  if injectCode.css
+    style(type='text/css')!= injectCode.css
+  if injectCode.head
+    != injectCode.head
 
 block body
   #root
@@ -13,3 +17,5 @@ block body
       effective-permissions=Buffer.from(JSON.stringify(effectivePermissions)).toString('base64')
       )
       code(v-pre)= page.content
+  if injectCode.body
+    != injectCode.body
