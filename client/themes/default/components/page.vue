@@ -283,18 +283,6 @@
                         color='white'
                         light
                         v-on='on'
-                        @click='pageConvert'
-                        )
-                        v-icon(size='20') mdi-lightning-bolt
-                    span {{$t('common:header.convert')}}
-                  v-tooltip(:right='$vuetify.rtl', :left='!$vuetify.rtl', v-if='hasWritePagesPermission')
-                    template(v-slot:activator='{ on }')
-                      v-btn(
-                        fab
-                        small
-                        color='white'
-                        light
-                        v-on='on'
                         @click='pageDuplicate'
                         )
                         v-icon(size='20') mdi-content-duplicate
