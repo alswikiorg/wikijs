@@ -141,6 +141,7 @@ export default {
       currentLocale: siteConfig.lang,
       currentFolderPath: '',
       currentPath: 'new-page',
+      currentTitle: 'title',
       currentPage: null,
       currentNode: [0],
       openNodes: [0],
@@ -241,6 +242,7 @@ export default {
     currentPage (newValue, oldValue) {
       if (!_.isEmpty(newValue)) {
         this.currentPath = newValue.path
+        this.currentTitle = newValue.title
       }
     },
     currentLocale (newValue, oldValue) {
@@ -268,6 +270,7 @@ export default {
       const exit = this.openHandler({
         locale: this.currentLocale,
         path: this.currentPath,
+        title: this.currentTitle,
         id: (this.mustExist && this.currentPage) ? this.currentPage.pageId : 0
       })
       if (exit !== false) {

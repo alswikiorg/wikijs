@@ -152,7 +152,7 @@
         .caption Ln {{cursorPos.line + 1}}, Col {{cursorPos.ch + 1}}
 
     markdown-help(v-if='helpShown')
-    page-selector(mode='select', v-model='insertLinkDialog', :open-handler='insertLinkHandler', :path='path', :locale='locale')
+    page-selector(mode='select', v-model='insertLinkDialog', :open-handler='insertLinkHandler', :tile='title', :path='path', :locale='locale')
 </template>
 
 <script>
@@ -645,10 +645,10 @@ export default {
     insertLink () {
       this.insertLinkDialog = true
     },
-    insertLinkHandler ({ locale, path }) {
+    insertLinkHandler ({ title, locale, path }) {
       const lastPart = _.last(path.split('/'))
       this.insertAtCursor({
-        content: siteLangs.length > 0 ? `[${lastPart}](/${locale}/${path})` : `[${lastPart}](/${path})`
+        content: siteLangs.length > 0 ? `[${title}](/${locale}/${path})` : `[${title}](/${path})`
       })
     },
     processMarkers (from, to) {
