@@ -180,7 +180,7 @@ export default {
       set(val) { this.$emit('input', val) }
     },
     currentPages () {
-      return _.sortBy(_.filter(this.pages, ['parent', _.head(this.currentNode) || 0]), ['title', 'path'])
+      return _.sortBy(_.filter(this.pages, ['parent', _.head(this.currentNode) || 0]), ['path'])
     },
     isValidPath () {
       if (!this.currentPath) {
