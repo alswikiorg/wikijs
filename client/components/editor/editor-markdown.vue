@@ -152,7 +152,7 @@
         .caption Ln {{cursorPos.line + 1}}, Col {{cursorPos.ch + 1}}
 
     markdown-help(v-if='helpShown')
-    page-selector(mode='select', v-model='insertLinkDialog', :open-handler='insertLinkHandler', :tile='title', :path='path', :locale='locale')
+    page-selector(mode='select', v-model='insertLinkDialog', :open-handler='insertLinkHandler', :title='title', :path='path', :locale='locale')
 </template>
 
 <script>

@@ -209,6 +209,7 @@ export default {
     isShown (newValue, oldValue) {
       if (newValue && !oldValue) {
         this.currentPath = this.path
+        this.currentTitle = this.title
         this.currentLocale = this.locale
         _.delay(() => {
           this.$refs.pathIpt.focus()
