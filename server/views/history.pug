@@ -1,6 +1,12 @@
 extends master.pug
 
 block head
+  if injectCode.css
+    style(type='text/css')!= injectCode.css
+  if injectCode.head
+    != injectCode.head
+  if config.features.featurePageComments
+    != comments.head
 
 block body
   #root
@@ -19,3 +25,7 @@ block body
       live-content=page.content
       effective-permissions=Buffer.from(JSON.stringify(effectivePermissions)).toString('base64')
       )
+  if injectCode.body
+    != injectCode.body
+  if config.features.featurePageComments
+    != comments.body

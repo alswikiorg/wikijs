@@ -270,11 +270,17 @@ router.get(['/h', '/h/*'], async (req, res, next) => {
     return res.render('unauthorized', { action: 'history' })
   }
 
+  const injectCode = {
+    css: WIKI.config.theming.injectCSS,
+    head: WIKI.config.theming.injectHead,
+    body: WIKI.config.theming.injectBody
+  }
+
   if (page) {
     _.set(res.locals, 'pageMeta.title', page.title)
     _.set(res.locals, 'pageMeta.description', page.description)
 
-    res.render('history', { page, effectivePermissions })
+    res.render('history', { page, effectivePermissions, injectCode })
   } else {
     res.redirect(`/${pageArgs.path}`)
   }
@@ -405,7 +411,7 @@ router.get(['/t', '/t/*'], (req, res, next) => {
     body: WIKI.config.theming.injectBody
   }
 
-  res.render('tags', { injectCode } )
+  res.render('tags', { injectCode })
 })
 
 /**
