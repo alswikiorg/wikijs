@@ -200,6 +200,7 @@ import mdMark from 'markdown-it-mark'
 import mdMultiTable from 'markdown-it-multimd-table'
 import mdFootnote from 'markdown-it-footnote'
 import mdImsize from 'markdown-it-imsize'
+import mdContainer from 'markdown-it-container'
 import katex from 'katex'
 import underline from '../../libs/markdown-it-underline'
 import 'katex/dist/contrib/mhchem'
@@ -266,6 +267,30 @@ const md = new MarkdownIt({
   .use(mdMark)
   .use(mdFootnote)
   .use(mdImsize)
+
+md.use(mdContainer, 'imagefig', {
+  validate: function(params) {
+    return params.trim().match(/^imagefig \[([\w/\\]+)\] \[(jpg|jpeg|gif|webp|png)\]$/)
+  },
+  render: (tokens, idx) => {
+    var m = tokens[idx].info.trim().match(/^imagefig \[([\w/\\]+)\] \[(jpg|jpeg|gif|webp|png)\]$/)
+
+    if (tokens[idx].nesting === 1) {
+      // opening tag
+      var text = [
+        `<figure class="alsfig">`,
+        `<a class="nolink" href="https://assets.alswiki.org/${m[1]}_1600x1200.${m[2]}">`,
+        `<img src="https://assets.alswiki.org/${m[1]}_300x200.${m[2]}" />`,
+        `</a>`,
+        `<figcaption>`
+      ].join('\n')
+      return text
+    } else {
+      // closing tag
+      return '</figcaption></figure>\n'
+    }
+  }
+})
 
 // DOMPurify fix for draw.io
 DOMPurify.addHook('uponSanitizeElement', (elm) => {
@@ -646,7 +671,6 @@ export default {
       this.insertLinkDialog = true
     },
     insertLinkHandler ({ title, locale, path }) {
-      const lastPart = _.last(path.split('/'))
       this.insertAtCursor({
         content: siteLangs.length > 0 ? `[${title}](/${locale}/${path})` : `[${title}](/${path})`
       })
