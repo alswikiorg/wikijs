@@ -354,6 +354,46 @@
         border-color: mc('green', '500');
       }
     }
+    &.is-tip {
+      background-color: mc('green', '50');
+      border-color: mc('green', '300');
+      color: mc('green', '900');
+
+      &::before {
+        content: "\F0335";
+      }
+
+      code:not([class^="language-"]) {
+        background-color: mc('green', '50');
+        color: mc('green', '800');
+      }
+
+      @at-root .theme--dark & {
+        background-color: mc('green', '900');
+        color: mc('green', '50');
+        border-color: mc('green', '500');
+      }
+    }
+    &.is-caution {
+      background-color: mc('purple', '50');
+      border-color: mc('purple', '300');
+      color: mc('purple', '900');
+
+      &::before {
+        content: "\f0238";
+      }
+
+      code:not([class^="language-"]) {
+        background-color: mc('purple', '50');
+        color: mc('purple', '800');
+      }
+
+      @at-root .theme--dark & {
+        background-color: mc('purple', '900');
+        color: mc('purple', '50');
+        border-color: mc('purple', '500');
+      }
+    }
   }
 
   // ---------------------------------
@@ -685,7 +725,7 @@
         display:inline-block;
         vertical-align:top;
         padding-top:0;
-        
+
         &:first-child {
           width: 100%;
         }
