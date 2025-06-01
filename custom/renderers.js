@@ -2,10 +2,10 @@
 module.exports = function (mdContainer, mkdown) {
   mkdown.use(mdContainer, 'imagefig', {
     validate: function (params) {
-      return params.trim().match(/^imagefig \[([\w/\\]+)\] \[(jpg|jpeg|gif|webp|png)\]$/)
+      return params.trim().match(/^imagefig \[([\w/\\.-]+)\] \[(jpg|jpeg|gif|webp|png)\]$/)
     },
     render: (tokens, idx) => {
-      var m = tokens[idx].info.trim().match(/^imagefig \[([\w/\\]+)\] \[(jpg|jpeg|gif|webp|png)\]$/)
+      var m = tokens[idx].info.trim().match(/^imagefig \[([\w/\\.-]+)\] \[(jpg|jpeg|gif|webp|png)\]$/)
 
       if (tokens[idx].nesting === 1) {
         // Opening tag
