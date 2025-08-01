@@ -12,7 +12,7 @@ module.exports = function (mdContainer, mkdown) {
         return [
           `<figure class="alsfig">`,
           `<a class="nolink" href="https://assets.alswiki.org/${m[1]}_1600x1200.${m[2]}">`,
-          `<img src="https://assets.alswiki.org/${m[1]}_300x200.${m[2]}" />`,
+          `<img src="https://assets.alswiki.org/${m[1]}_320x240.${m[2]}" />`,
           `</a>`,
           `<figcaption>`
         ].join('\n')
