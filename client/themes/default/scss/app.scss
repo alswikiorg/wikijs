@@ -1315,6 +1315,8 @@
         color: #000;
         box-shadow: none;
         text-shadow: none;
+        white-space: pre-wrap !important;
+        overflow-wrap: break-word !important;
       }
     }
   }
