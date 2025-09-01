@@ -228,7 +228,7 @@ import katexHelper from './common/katex'
 import tabsetHelper from './markdown/tabset'
 import cmFold from './common/cmFold'
 
-const imagefig = require('../../../custom/renderers')
+const customRenderers = require('../../../custom/renderers')
 
 // ========================================
 // INIT
@@ -280,7 +280,7 @@ const md = new MarkdownIt({
   .use(mdFootnote)
   .use(mdImsize)
 
-imagefig(mdContainer, md)
+customRenderers(mdContainer, md)
 
 // DOMPurify fix for draw.io
 DOMPurify.addHook('uponSanitizeElement', (elm) => {
