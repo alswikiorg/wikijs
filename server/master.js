@@ -37,6 +37,16 @@ module.exports = async () => {
   WIKI.app = app
   app.use(compression())
 
+  // logger middleware
+  app.use((req, res, next) => {
+    const words = ['/_assets/', '/graphql']
+    if (!words.some(word => req.path.includes(word))) {
+      const msg = `${req.method} ${req.path}`
+      WIKI.logger.debug(msg)
+    }
+    next()
+  })
+
   // ----------------------------------------
   // Security
   // ----------------------------------------
