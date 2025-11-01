@@ -1,14 +1,16 @@
 module.exports = function (mdContainer, mkdown) {
-  const re = /^imagefig \[([\w/\\.-]+)\] \[(jpg|jpeg|gif|webp|png)\](?: \[([\x20-\x7E]+)\])?$/
+  const imagefigRE = /^imagefig \[([\w/\\.-]+)\] \[(jpg|jpeg|gif|webp|png)\](?: \[([\x20-\x7E]+)\])?$/
 
   mkdown.use(mdContainer, 'imagefig', {
     validate: function (params) {
-      return params.trim().match(re)
+      return params.trim().match(imagefigRE)
     },
     render: (tokens, idx) => {
-      var m = tokens[idx].info.trim().match(re)
+      var m = tokens[idx].info.trim().match(imagefigRE)
 
       if (tokens[idx].nesting === 1) {
+        // Opening tag
+
         const optsList = (m[3] || '').split(', ')
         const opts = {}
 
@@ -29,15 +31,18 @@ module.exports = function (mdContainer, mkdown) {
         const css = (opts.css != null) ? opts.css : ''
         const linkcss = (opts.linkcss != null) ? opts.linkcss : ''
         const imagecss = (opts.imagecss != null) ? opts.imagecss : ''
+        const containerbasecss = opts['lgthumb'] ? 'imgspanlg' : 'imgspan'
+        const containercss = (opts.containercss != null) ? opts.containercss : ''
 
-        // Opening tag
         return [
           `<figure class="alsfig ${css}">`,
-          `<a class="nolink ${linkcss}" href="${link}">`,
+          `<span class="${containerbasecss} ${containercss}">`,
+          `<a class="alsfigimganchor nolink ${linkcss}" href="${link}">`,
           `<img class="nolink ${imagecss}" src="https://assets.alswiki.org/${m[1]}_${thumbSize}.${m[2]}" />`,
           `</a>`,
+          `</span>`,
           `<figcaption>`
-        ].join('\n')
+        ].join('')
       } else {
         // Closing tag
         return '</figcaption></figure>\n'
