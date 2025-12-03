@@ -52,15 +52,20 @@ module.exports = {
     async search (obj, args, context) {
       if (WIKI.data.searchEngine) {
         const resp = await WIKI.data.searchEngine.query(args.query, args)
+        const results = _.filter(resp.results, r => {
+          return WIKI.auth.checkAccess(context.req.user, ['read:pages'], {
+            path: r.path,
+            locale: r.locale,
+            tags: r.tags // Tags are needed since access permissions can be limited by page tags too
+          })
+        })
+
+        const msg = `Search: '${args.query}', results: ${results.length}`
+        WIKI.logger.debug(msg)
+
         return {
           ...resp,
-          results: _.filter(resp.results, r => {
-            return WIKI.auth.checkAccess(context.req.user, ['read:pages'], {
-              path: r.path,
-              locale: r.locale,
-              tags: r.tags // Tags are needed since access permissions can be limited by page tags too
-            })
-          })
+          results: results
         }
       } else {
         return {
