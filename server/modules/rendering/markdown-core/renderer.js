@@ -5,7 +5,7 @@ const mdContainer = require('markdown-it-container')
 const _ = require('lodash')
 const underline = require('./underline')
 
-const imagefig = require('../../../../custom/renderers')
+const customRenderers = require('../../../../custom/renderers')
 
 const quoteStyles = {
   Chinese: '””‘’',
@@ -48,7 +48,7 @@ module.exports = {
     })
     mkdown.use(mdDecorate)
 
-    imagefig(mdContainer, mkdown)
+    customRenderers(mdContainer, mkdown)
 
     for (let child of this.children) {
       const renderer = require(`../${_.kebabCase(child.key)}/renderer.js`)

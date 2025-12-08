@@ -49,4 +49,33 @@ module.exports = function (mdContainer, mkdown) {
       }
     }
   })
+
+  const youtubeRE = /^youtube \[([^\]]+)\]?$/
+
+  mkdown.use(mdContainer, 'youtube', {
+    validate: function (params) {
+      return params.trim().match(youtubeRE)
+    },
+    render: (tokens, idx) => {
+      var m = tokens[idx].info.trim().match(youtubeRE)
+
+      if (tokens[idx].nesting === 1) {
+        // Opening tag
+
+        const embedPath = m[1]
+
+        return [
+          `<iframe width="560" height="315" src="https://www.youtube.com${embedPath}" `,
+          `title="YouTube video player" frameborder="0" `,
+          `allow="accelerometer; autoplay; clipboard-write; `,
+          `encrypted-media; gyroscope; picture-in-picture; web-share" `,
+          `referrerpolicy="strict-origin-when-cross-origin" `,
+          `allowfullscreen>`
+        ].join('')
+      } else {
+        // Closing tag
+        return '</iframe>\n'
+      }
+    }
+  })
 }
