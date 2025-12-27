@@ -18,7 +18,7 @@
         autocomplete='none'
       )
     v-layout(row)
-      v-flex(xs5, md4)
+      v-flex(xs8, md4)
         v-toolbar.nav-header-inner(color='black', dark, flat, :class='$vuetify.rtl ? `pr-3` : `pl-3`')
           v-avatar(tile, size='34', @click='goHome')
             v-img.org-logo(:src='logoUrl')
