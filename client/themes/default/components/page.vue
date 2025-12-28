@@ -18,7 +18,7 @@
     v-fab-transition(v-if='navMode !== `NONE`')
       v-btn(
         fab
-        color='primary'
+        color='secondary'
         fixed
         bottom
         :right='$vuetify.rtl'
@@ -243,7 +243,7 @@
                   template(v-slot:activator)
                     v-btn.btn-animate-edit(
                       fab
-                      color='primary'
+                      color='secondary'
                       v-model='pageEditFab'
                       @click='pageEdit'
                       v-on='onEditActivator'
@@ -336,7 +336,7 @@
         small
         :depressed='this.$vuetify.breakpoint.mdAndUp'
         @click='$vuetify.goTo(0, scrollOpts)'
-        color='primary'
+        color='secondary'
         dark
         :style='upBtnPosition'
         :aria-label='$t(`common:actions.returnToTop`)'
