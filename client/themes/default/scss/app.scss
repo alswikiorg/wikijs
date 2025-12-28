@@ -85,114 +85,50 @@
 
   h1 {
     padding: 0;
-    color: mc('blue', '800');
+    color: #1f5a44;
     margin-top: 2rem;
     position: relative;
+    border-bottom: 1px solid #1f5a44;
 
     @at-root .theme--dark & {
       color: mc('grey', '300');
     }
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(to right, mc('theme', 'primary'), rgba(mc('theme', 'primary'), 0));
-      border-radius: 3px;
-
-      @at-root .theme--dark & {
-        background: linear-gradient(to right, mc('blue', '300') 0%, mc('blue', '500') 10%, rgba(mc('blue', '900'), 0) 100%);
-      }
-
-      @at-root .is-rtl & {
-        background: linear-gradient(to left, mc('theme', 'primary'), rgba(mc('theme', 'primary'), 0));
-      }
-      @at-root .theme--dark.is-rtl & {
-        background: linear-gradient(to left, mc('grey', '600'), rgba(mc('grey', '600'), 0));
-      }
-    }
   }
   h2 {
-    margin: 1rem 0 0 0;
-    color: mc('grey', '800');
+    margin: 2rem 0 0 0;
+    color: #1f5a44;
     position: relative;
+    border-bottom: 1px solid #1f5a44;
 
     @at-root .theme--dark & {
       color: mc('grey', '400');
     }
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, mc('grey', '700'), rgba(mc('grey', '700'), 0));
-
-      @at-root .theme--dark & {
-        background: linear-gradient(to right, mc('grey', '300'), rgba(mc('grey', '700'), 0));
-      }
-
-      @at-root .is-rtl & {
-        background: linear-gradient(to left, mc('grey', '700'), rgba(mc('grey', '700'), 0));
-      }
-      @at-root .theme--dark.is-rtl & {
-        background: linear-gradient(to left, mc('grey', '300'), rgba(mc('grey', '700'), 0));
-      }
-    }
   }
   h3 {
-    margin: 8px 0 0 0;
-    color: mc('grey', '700');
+    font-size: 1.3rem;
+    margin: 1.7rem 0 0 0;
+    color: #000;
     position: relative;
 
     @at-root .theme--dark & {
       color: mc('grey', '600');
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 90%);
     }
   }
   h4, h5, h6 {
-    font-size: 1rem;
-    margin: 8px 0 0 0;
-    color: mc('grey', '700');
+    font-size: 1.1rem;
+    margin: 1.125rem 0 0 0;
+    color: #000;
     position: relative;
 
     @at-root .theme--dark & {
       color: mc('grey', '600');
     }
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 70%);
-    }
   }
   h5 {
-    &::after {
-      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 50%);
-    }
+    font-size: 1.05rem;
   }
   h6 {
-    &::after {
-      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 30%);
-    }
+    font-size: 1.0rem;
   }
 
   // ---------------------------------
@@ -709,9 +645,12 @@
     > li::before {
       position: absolute;
       left: -1.1rem;
-      content: '\25b8';
-      color: mc('grey', '600');
+      top: 0.8rem;
+      transform: translateY(-50%);
+      content: '\2022';
+      color: #000;
       width: 1.35rem;
+      font-size: 1.2rem;
 
       @at-root .is-rtl & {
         right: -1.1rem;
