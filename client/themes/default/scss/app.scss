@@ -243,11 +243,12 @@
 
   blockquote {
     padding: 0 1rem 1rem 1rem;
-    background-color: mc('blue-grey', '50');
-    border-left: 55px solid mc('blue-grey', '500');
+    background-color: #e5e5e5;
+    border-left: 55px solid #808080;
     border-radius: .5rem;
     margin: 1rem 0;
     position: relative;
+    color: #222222;
 
     @at-root .theme--dark & {
       background-color: mc('blue-grey', '900');
@@ -274,9 +275,9 @@
     }
 
     &.is-info {
-      background-color: mc('blue', '50');
-      border-color: mc('blue', '300');
-      color: mc('blue', '900');
+      background-color: #e9f0f6;
+      border-color: #679ac0;
+      color: #164363;
 
       &::before {
         content: "\F02FC";
@@ -335,9 +336,9 @@
       }
     }
     &.is-success {
-      background-color: mc('green', '50');
-      border-color: mc('green', '300');
-      color: mc('green', '900');
+      background-color: #d8f0e7;
+      border-color: #77caac;
+      color: #1f5a44;
 
       &::before {
         content: "\F0E1E";
@@ -355,9 +356,9 @@
       }
     }
     &.is-tip {
-      background-color: mc('green', '50');
-      border-color: mc('green', '300');
-      color: mc('green', '900');
+      background-color: #d8f0e7;
+      border-color: #77caac;
+      color: #1f5a44;
 
       &::before {
         content: "\F0335";
@@ -375,9 +376,9 @@
       }
     }
     &.is-caution {
-      background-color: mc('purple', '50');
-      border-color: mc('purple', '300');
-      color: mc('purple', '900');
+      background-color: #eeeaf2;
+      border-color: #8a71a7;
+      color: #4f2f75;
 
       &::before {
         content: "\f0238";
