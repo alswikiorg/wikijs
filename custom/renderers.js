@@ -65,7 +65,7 @@ module.exports = function (mdContainer, mkdown) {
         const embedPath = m[1]
 
         return [
-          `<iframe width="560" height="315" src="https://www.youtube.com${embedPath}" `,
+          `<iframe class="yt-iframe" width="560" height="315" src="https://www.youtube.com${embedPath}" `,
           `title="YouTube video player" frameborder="0" `,
           `allow="accelerometer; autoplay; clipboard-write; `,
           `encrypted-media; gyroscope; picture-in-picture; web-share" `,
