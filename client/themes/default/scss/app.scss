@@ -1,7 +1,7 @@
 /* THEME SPECIFIC STYLES */
 
 .v-main .contents {
-  color: #2F2F2F;
+  color: #333333;
   padding: .5rem 0 50px;
   position: relative;
 
@@ -94,10 +94,11 @@
     }
   }
   h4, h5, h6 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin: 1.125rem 0 0 0;
-    color: #666;
+    color: #444;
     position: relative;
+    text-decoration: underline;
 
     @at-root .theme--dark & {
       color: mc('grey', '600');
