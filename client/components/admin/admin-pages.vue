@@ -8,14 +8,15 @@
             .headline.blue--text.text--darken-2.animated.fadeInLeft Pages
             .subtitle-1.grey--text.animated.fadeInLeft.wait-p2s Manage pages
           v-spacer
-          v-btn.animated.fadeInDown.wait-p1s(icon, color='grey', outlined, @click='refresh')
-            v-icon.grey--text mdi-refresh
-          //- v-btn.animated.fadeInDown.mx-3(color='primary', outlined, @click='recyclebin', disabled)
-          //-   v-icon(left) mdi-delete-outline
-          //-   span Recycle Bin
-          v-btn.animated.fadeInDown(color='primary', depressed, large, to='pages/visualize')
-            v-icon(left) mdi-graph
-            span Visualize
+          div(style="display: inline-flex; gap: 8px; align-items: center;")
+            v-btn.animated.fadeInDown.wait-p1s(icon, color='grey', outlined, @click='refresh')
+              v-icon.grey--text mdi-refresh
+            //- v-btn.animated.fadeInDown.mx-3(color='primary', outlined, @click='recyclebin', disabled)
+            //-   v-icon(left) mdi-delete-outline
+            //-   span Recycle Bin
+            v-btn.animated.fadeInDown(color='primary', depressed, large, to='pages/visualize')
+              v-icon(left) mdi-graph
+              span Visualize
         v-card.mt-3.animated.fadeInUp
           .pa-2.d-flex.align-center(:class='$vuetify.theme.dark ? `grey darken-3-d5` : `grey lighten-3`')
             v-text-field(
@@ -55,7 +56,7 @@
             :headers='headers'
             :search='search'
             :page.sync='pagination'
-            :items-per-page='15'
+            :items-per-page='20'
             :loading='loading'
             must-sort,
             sort-by='updatedAt',
@@ -64,14 +65,30 @@
             @page-count="pageTotal = $event"
           )
             template(slot='item', slot-scope='props')
-              tr.is-clickable(:active='props.selected', @click='$router.push(`/pages/` + props.item.id)')
-                td.text-xs-right {{ props.item.id }}
+              tr.page(:class="{ active: props.selected }")
                 td
-                  .body-2: strong {{ props.item.title }}
-                  .caption {{ props.item.description }}
+                  span.icon-links(style="display: inline-flex; gap: 8px; align-items: center;")
+                    a.row-link(:href="makePagePath(props.item)")
+                      v-icon(color='grey') mdi-text
+                    a.row-link(:href="`/e${makePagePath(props.item)}`")
+                      v-icon(color='grey') mdi-pencil
+                td.link-cell
+                  router-link.row-link(:to="`/pages/${props.item.id}`") {{ props.item.id }}
+                td
+                  router-link.row-link(:to="`/pages/${props.item.id}`")
+                    .body-2
+                      strong {{ props.item.title }}
+                    .caption {{ props.item.description }}
                 td.admin-pages-path
-                  v-chip(label, small, :color='$vuetify.theme.dark ? `grey darken-4` : `grey lighten-4`') {{ props.item.locale }}
-                  span.ml-2.grey--text(:class='$vuetify.theme.dark ? `text--lighten-1` : `text--darken-2`') / {{ props.item.path }}
+                  router-link.row-link(:to="`/pages/${props.item.id}`")
+                    v-chip(
+                      label
+                      small
+                      :color="$vuetify.theme.dark ? 'grey darken-4' : 'grey lighten-4'"
+                    ) {{ props.item.locale }}
+                    span.ml-2.grey--text(
+                      :class="$vuetify.theme.dark ? 'text--lighten-1' : 'text--darken-2'"
+                    ) / {{ props.item.path }}
                 td {{ props.item.createdAt | moment('calendar') }}
                 td {{ props.item.updatedAt | moment('calendar') }}
             template(slot='no-data')
@@ -92,11 +109,12 @@ export default {
       pages: [],
       pageTotal: 0,
       headers: [
+        { text: '', value: null, width: 90, sortable: false },
         { text: 'ID', value: 'id', width: 80, sortable: true },
         { text: 'Title', value: 'title' },
         { text: 'Path', value: 'path' },
-        { text: 'Created', value: 'createdAt', width: 250 },
-        { text: 'Last Updated', value: 'updatedAt', width: 250 }
+        { text: 'Created', value: 'createdAt', width: 160 },
+        { text: 'Last Updated', value: 'updatedAt', width: 160 }
       ],
       search: '',
       selectedLang: null,
@@ -143,6 +161,11 @@ export default {
     newpage() {
       this.pageSelectorShown = true
     },
+    makePagePath(item) {
+      const cleanLocale = item.locale.replace(/^\/+/, '')
+      const cleanPath = item.path.replace(/^\/+/, '')
+      return `/${cleanLocale}/${cleanPath}`
+    },
     recyclebin () { }
   },
   apollo: {
@@ -160,6 +183,23 @@ export default {
 </script>
 
 <style lang='scss'>
+tr.page {
+  cursor: auto;
+  height: 48px;
+}
+
+td.link-cell {
+  padding: 0;
+}
+
+.row-link {
+  text-decoration: none;
+}
+
+tr.is-clickable:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
 .admin-pages-path {
   display: flex;
   justify-content: flex-start;
