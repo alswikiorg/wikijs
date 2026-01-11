@@ -68,10 +68,16 @@
               tr.page(:class="{ active: props.selected }")
                 td
                   span.icon-links(style="display: inline-flex; gap: 8px; align-items: center;")
-                    a.row-link(:href="makePagePath(props.item)")
-                      v-icon(color='grey') mdi-text
-                    a.row-link(:href="`/e${makePagePath(props.item)}`")
-                      v-icon(color='grey') mdi-pencil
+                    a.row-link(
+                      :href="makePagePath(props.item)"
+                      title="View page"
+                    )
+                      v-icon(color="grey") mdi-text
+                    a.row-link(
+                      :href="`/e${makePagePath(props.item)}`"
+                      title="Edit page"
+                    )
+                      v-icon(color="grey") mdi-pencil
                 td.link-cell
                   router-link.row-link(:to="`/pages/${props.item.id}`") {{ props.item.id }}
                 td
@@ -109,7 +115,7 @@ export default {
       pages: [],
       pageTotal: 0,
       headers: [
-        { text: '', value: null, width: 90, sortable: false },
+        { text: 'Actions', value: null, width: 90, sortable: false },
         { text: 'ID', value: 'id', width: 80, sortable: true },
         { text: 'Title', value: 'title' },
         { text: 'Path', value: 'path' },
