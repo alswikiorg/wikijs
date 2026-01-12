@@ -37,8 +37,8 @@ module.exports = function (mdContainer, mkdown) {
         return [
           `<figure class="alsfig ${css}">`,
           `<span class="${containerbasecss} ${containercss}">`,
-          `<a class="alsfigimganchor nolink ${linkcss}" href="${link}">`,
-          `<img class="nolink ${imagecss}" src="https://assets.alswiki.org/${m[1]}_${thumbSize}.${m[2]}" />`,
+          `<a class="alsfigimganchor ${linkcss}" href="${link}">`,
+          `<img class="${imagecss}" src="https://assets.alswiki.org/${m[1]}_${thumbSize}.${m[2]}" />`,
           `</a>`,
           `</span>`,
           `<figcaption>`
