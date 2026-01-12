@@ -85,9 +85,9 @@
   h3 {
     font-size: 1.3rem;
     margin: 1.7rem 0 0 0;
-    color: #444;
+    color: #666;
     position: relative;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #666;
 
     @at-root .theme--dark & {
       color: mc('grey', '600');
@@ -96,7 +96,7 @@
   h4, h5, h6 {
     font-size: 1.2rem;
     margin: 1.125rem 0 0 0;
-    color: #444;
+    color: #666;
     position: relative;
     text-decoration: underline;
 
