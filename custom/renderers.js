@@ -1,6 +1,27 @@
 module.exports = function (mdContainer, mkdown) {
   const imagefigRE = /^imagefig \[([\w/\\.-]+)\] \[(jpg|jpeg|gif|webp|png)\](?: \[([\x20-\x7E]+)\])?$/
 
+  function generateAltFromPath(path) {
+    if (!path) return ''
+
+    // Get last part of the path
+    const filename = path.split('/').pop()
+
+    // Remove file extension if present
+    const nameWithoutExt = filename.replace(/\.[^/.]+$/, '')
+
+    // Replace separators with spaces
+    const words = nameWithoutExt
+      .replace(/[_-]+/g, ' ')
+      .trim()
+      .split(/\s+/)
+
+    // Title-case the words
+    return words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
+
   mkdown.use(mdContainer, 'imagefig', {
     validate: function (params) {
       return params.trim().match(imagefigRE)
@@ -33,12 +54,13 @@ module.exports = function (mdContainer, mkdown) {
         const imagecss = (opts.imagecss != null) ? opts.imagecss : ''
         const containerbasecss = opts['lgthumb'] ? 'imgspanlg' : 'imgspan'
         const containercss = (opts.containercss != null) ? opts.containercss : ''
+        const alt = generateAltFromPath(m[1])
 
         return [
           `<figure class="alsfig ${css}">`,
           `<span class="${containerbasecss} ${containercss}">`,
           `<a class="alsfigimganchor ${linkcss}" href="${link}">`,
-          `<img class="${imagecss}" src="https://assets.alswiki.org/${m[1]}_${thumbSize}.${m[2]}" />`,
+          `<img class="${imagecss}" src="https://assets.alswiki.org/${m[1]}_${thumbSize}.${m[2]}" alt="${alt}" />`,
           `</a>`,
           `</span>`,
           `<figcaption>`
