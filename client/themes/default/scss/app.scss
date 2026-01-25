@@ -625,24 +625,6 @@
     }
   }
 
-  ul:not(.tabset-tabs):not(.contains-task-list) {
-    list-style: none;
-    > li::before {
-      position: absolute;
-      left: -1.1rem;
-      top: 0.8rem;
-      transform: translateY(-50%);
-      content: '\2022';
-      color: #000;
-      width: 1.35rem;
-      font-size: 1.2rem;
-
-      @at-root .is-rtl & {
-        right: -1.1rem;
-        content: '\25C3';
-      }
-    }
-  }
   ol, ul:not(.tabset-tabs) {
     > li {
       position: relative;
