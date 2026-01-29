@@ -199,6 +199,7 @@ module.exports = {
     // Add header handles
     // --------------------------------
 
+    const noTocStack = Array(7).fill(false) // index = heading level (1–6), value = boolean
     let headers = []
     $('h1,h2,h3,h4,h5,h6').each((i, elm) => {
       let headerSlug = uslug($(elm).text())
@@ -226,9 +227,23 @@ module.exports = {
         }
       }
 
-      // -> Add anchor
-      $(elm).attr('id', headerSlug).addClass('toc-header')
-      $(elm).prepend(`<a class="toc-anchor" href="#${headerSlug}">&#xB6;</a> `)
+      // -> Add anchor as long as we are not in a no-toc section
+      const level = Number(elm.name.substring(1)) // "h3" -> 3
+
+      for (let i = level + 1; i <= 6; i++) {
+        noTocStack[i] = false
+      }
+
+      noTocStack[level] = $(elm).hasClass('no-toc')
+
+      const inNoTocSection = noTocStack
+        .slice(1, level + 1)
+        .some(Boolean)
+
+      if (!inNoTocSection) {
+        $(elm).attr('id', headerSlug).addClass('toc-header')
+        $(elm).prepend(`<a class="toc-anchor" href="#${headerSlug}">&#xB6;</a> `)
+      }
 
       headers.push(headerSlug)
     })

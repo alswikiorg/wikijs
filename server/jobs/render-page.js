@@ -40,8 +40,25 @@ module.exports = async (pageId) => {
     const $ = cheerio.load(output)
     let isStrict = $('h1').length > 0 // <- Allows for documents using H2 as top level
     let toc = { root: [] }
+    const noTocStack = Array(7).fill(false) // index = heading level (1–6), value = boolean
 
     $('h1,h2,h3,h4,h5,h6').each((idx, el) => {
+      const level = Number(el.name.substring(1)) // "h3" -> 3
+
+      for (let i = level + 1; i <= 6; i++) {
+        noTocStack[i] = false
+      }
+
+      noTocStack[level] = $(el).hasClass('no-toc')
+
+      const inNoTocSection = noTocStack
+        .slice(1, level + 1)
+        .some(Boolean)
+
+      if (inNoTocSection) {
+        return
+      }
+
       const depth = _.toSafeInteger(el.name.substring(1)) - (isStrict ? 1 : 2)
       let leafPathError = false
 
