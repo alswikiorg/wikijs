@@ -19,8 +19,9 @@
         v-card-text
           v-card.grey.radius-7(flat, :class='$vuetify.theme.dark ? `darken-4` : `lighten-4`')
             v-card-text
-              pre
-                slot
+              pre.prismjs.line-numbers
+                code(ref='slotContent')
+                  slot
 
     nav-footer
     notify
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+import Prism from 'prismjs'
+
 export default {
   props: {
     pageId: {
@@ -69,6 +72,13 @@ export default {
       this.$store.set('page/effectivePermissions', JSON.parse(Buffer.from(this.effectivePermissions, 'base64').toString()))
     }
   },
+  mounted() {
+    this.$nextTick(() => {
+      if (this.$refs.slotContent) {
+        Prism.highlightElement(this.$refs.slotContent)
+      }
+    })
+  },
   methods: {
     goLive() {
       window.location.assign(`/${this.locale}/${this.path}`)
@@ -83,21 +93,41 @@ export default {
 <style lang='scss'>
 
 .source {
-  pre > code {
+  pre {
+    border-radius: 0;
+    border: none;
     box-shadow: none;
     background-color: transparent;
     color: mc('grey', '800');
-    font-family: 'Roboto Mono', sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
+    user-select: text;
 
     @at-root .theme--dark.source pre > code {
       background-color: mc('grey', '900');
       color: mc('grey', '400');
     }
+  }
+  pre > code {
+    box-shadow: none;
+    text-shadow: none;
+    background-color: transparent;
+    color: mc('grey', '800');
+    font-family: 'Roboto Mono', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 0;
+
+    @at-root .theme--dark.source pre > code {
+      background-color: mc('grey', '900');
+    }
 
     &::before {
       display: none;
+    }
+
+    &::selection {
+      background: Highlight;
+      color: HighlightText;
+      text-shadow: none;
     }
   }
 }
