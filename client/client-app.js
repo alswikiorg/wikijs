@@ -210,7 +210,7 @@ let bootstrap = () => {
         dark: darkModeEnabled,
         themes: {
           light: {
-            primary: '#267055',
+            primary: '#2b7e5f',
             secondary: '#424242',
             accent: '#82B1FF',
             error: '#FF5252',
