@@ -394,8 +394,6 @@ export default {
 <style lang='scss'>
 .admin-pages-visualize-svg {
   text-align: center;
-  // 100vh - header - title section - footer - content padding
-  height: calc(100vh - 64px - 92px - 32px - 16px);
 
   > svg {
     height: 100%;
