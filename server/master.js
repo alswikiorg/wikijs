@@ -135,7 +135,7 @@ module.exports = async () => {
   app.locals.config = WIKI.config
   app.locals.pageMeta = {
     title: '',
-    description: WIKI.config.description,
+    description: WIKI.config.seo.description,
     image: '',
     url: '/'
   }

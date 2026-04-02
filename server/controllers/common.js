@@ -8,6 +8,19 @@ const qs = require('querystring')
 
 /* global WIKI */
 
+function oneof(...values) {
+  for (const val of values) {
+    if (
+      val !== null &&
+      val !== undefined &&
+      !(typeof val === 'string' && val.trim() === '')
+    ) {
+      return val
+    }
+  }
+  return null
+}
+
 const tmplCreateRegex = /^[0-9]+(,[0-9]+)?$/
 
 /**
@@ -158,7 +171,7 @@ router.get(['/e', '/e/*'], async (req, res, next) => {
     }
 
     _.set(res.locals, 'pageMeta.title', `Edit ${page.title}`)
-    _.set(res.locals, 'pageMeta.description', page.description)
+    _.set(res.locals, 'pageMeta.description', oneof(page.description, WIKI.config.seo.description))
     page.mode = 'update'
     page.isPublished = (page.isPublished === true || page.isPublished === 1) ? 'true' : 'false'
     page.content = Buffer.from(page.content).toString('base64')
@@ -211,7 +224,7 @@ router.get(['/e', '/e/*'], async (req, res, next) => {
         page.content = Buffer.from(pageVersion.content).toString('base64')
         page.editorKey = pageVersion.editor
         page.title = pageVersion.title
-        page.description = pageVersion.description
+        page.description = oneof(pageVersion.description, WIKI.config.seo.description)
       } else {
         // -> From Page Live
         const pageOriginal = await WIKI.models.pages.query().findById(tmplPageId)
@@ -226,7 +239,7 @@ router.get(['/e', '/e/*'], async (req, res, next) => {
         page.content = Buffer.from(pageOriginal.content).toString('base64')
         page.editorKey = pageOriginal.editorKey
         page.title = pageOriginal.title
-        page.description = pageOriginal.description
+        page.description = oneof(pageOriginal.description, WIKI.config.seo.description)
       }
     }
   }
@@ -278,7 +291,7 @@ router.get(['/h', '/h/*'], async (req, res, next) => {
 
   if (page) {
     _.set(res.locals, 'pageMeta.title', page.title)
-    _.set(res.locals, 'pageMeta.description', page.description)
+    _.set(res.locals, 'pageMeta.description', oneof(page.description, WIKI.config.seo.description))
 
     res.render('history', { page, effectivePermissions, injectCode })
   } else {
@@ -380,7 +393,7 @@ router.get(['/s', '/s/*'], async (req, res, next) => {
     if (versionId > 0) {
       const pageVersion = await WIKI.models.pageHistory.getVersion({ pageId: page.id, versionId })
       _.set(res.locals, 'pageMeta.title', pageVersion.title)
-      _.set(res.locals, 'pageMeta.description', pageVersion.description)
+      _.set(res.locals, 'pageMeta.description', oneof(pageVersion.description, WIKI.config.seo.description))
       res.render('source', {
         page: {
           ...page,
@@ -390,7 +403,7 @@ router.get(['/s', '/s/*'], async (req, res, next) => {
       })
     } else {
       _.set(res.locals, 'pageMeta.title', page.title)
-      _.set(res.locals, 'pageMeta.description', page.description)
+      _.set(res.locals, 'pageMeta.description', oneof(page.description, WIKI.config.seo.description))
 
       res.render('source', { page, effectivePermissions, injectCode })
     }
@@ -480,7 +493,7 @@ router.get('/*', async (req, res, next) => {
 
       if (page) {
         _.set(res.locals, 'pageMeta.title', page.title)
-        _.set(res.locals, 'pageMeta.description', page.description)
+        _.set(res.locals, 'pageMeta.description', oneof(page.description, WIKI.config.seo.description))
 
         // -> Check Publishing State
         let pageIsPublished = page.isPublished

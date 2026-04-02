@@ -11,10 +11,12 @@ html(lang=siteConfig.lang)
     title= pageMeta.title + ' | ' + config.title
 
     //- SEO / OpenGraph
-    meta(name='description', content=pageMeta.description)
+    if pageMeta.description
+      meta(name='description', content=pageMeta.description)
+      meta(property='og:description', content=pageMeta.description)
+
     meta(property='og:title', content=pageMeta.title)
     meta(property='og:type', content='website')
-    meta(property='og:description', content=pageMeta.description)
     meta(property='og:image', content=pageMeta.image)
     meta(property='og:url', content=pageMeta.url)
     meta(property='og:site_name', content=config.title)
